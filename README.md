@@ -1,5 +1,7 @@
 # Fluxograma · Rastreamento do Câncer do Colo do Útero (Parte II)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/590bae44-ecf0-4bcf-a1ea-8b032058c0a0/deploy-status)](https://app.netlify.com/projects/colo-utero-fluxo/deploys)
+
 Ferramenta de consulta rápida às recomendações das **Diretrizes Brasileiras para o
 Rastreamento do Câncer do Colo do Útero, Parte II**, publicadas pela Conitec, pelo
 INCA e pelo Ministério da Saúde.
