@@ -1,0 +1,9 @@
+# gerados pelo build
+build/diretrizes.txt
+build/intermediario.html
+build/markup.html
+
+# sistema
+.DS_Store
+node_modules/
+__pycache__/
