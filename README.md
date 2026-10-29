@@ -53,8 +53,10 @@ na página de créditos do próprio documento:
 > e que não seja para venda ou qualquer fim comercial.
 
 Este projeto **não tem fim comercial** e cita a fonte em todas as telas onde
-aparece texto transcrito. O PDF de origem não está neste repositório: baixe a versão
-vigente no site da Conitec.
+aparece texto transcrito. O PDF de origem está em [`fonte/`](fonte/) e também pode
+ser baixado no
+[site da Conitec](https://www.gov.br/conitec/pt-br/midias/consultas/relatorios/2026/relatorio-preliminar-pcdt-rastreamento-do-cancer-do-colo-do-utero-parte-ii-cp-57.pdf/@@display-file/file)
+(Consulta Pública nº 57).
 
 ---
 
@@ -62,7 +64,9 @@ vigente no site da Conitec.
 
 ```
 .
-└── index.html    # página completa: HTML pré-renderizado, CSS, dados e JavaScript
+├── index.html    # página completa: HTML pré-renderizado, CSS, dados e JavaScript
+└── fonte/
+    └── diretrizes-colo-utero-parte-II.pdf   # documento de origem (CP 57, 175 páginas)
 ```
 
 O `index.html` é autossuficiente. Ele traz três camadas num arquivo só:
@@ -76,7 +80,8 @@ O `index.html` é autossuficiente. Ele traz três camadas num arquivo só:
 
 > A primeira versão foi gerada por um pipeline (scripts em Python que liam o PDF e
 > montavam este arquivo). Esses scripts não foram preservados, então hoje o
-> `index.html` é a fonte oficial do projeto.
+> `index.html` é a fonte oficial do projeto. Em outubro de 2026, as 553 transcrições
+> do `TEXTOS` foram conferidas contra o PDF em `fonte/` e batem com o documento.
 
 ---
 
@@ -92,7 +97,8 @@ Depois abra o arquivo no navegador e confira.
 A versão final pode mudar condutas, e não só textos. Por isso vale refazer o
 pipeline em vez de editar à mão:
 
-1. Baixe o PDF da versão final no site da Conitec.
+1. Baixe o PDF da versão final no site da Conitec. Guarde a versão preliminar para
+   comparar o que mudou.
 2. Recrie os scripts de extração usando este `index.html` como modelo de layout e
    lógica. As transcrições passam a vir do PDF novo.
 3. Revise a lógica clínica do navegador de conduta à mão. As transcrições podem ser
@@ -100,7 +106,7 @@ pipeline em vez de editar à mão:
 4. Teste o navegador de conduta e clique em alguns números de recomendação para ver
    se o texto bate com o PDF novo.
 5. Atualize ou remova o aviso de "versão preliminar" no cabeçalho.
-6. Desta vez, salve os scripts e o PDF no repositório, nas pastas `build/` e `fonte/`.
+6. Desta vez, salve os scripts no repositório, na pasta `build/`, e o PDF novo em `fonte/`.
 
 ---
 
