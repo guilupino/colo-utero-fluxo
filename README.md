@@ -53,7 +53,8 @@ na página de créditos do próprio documento:
 > e que não seja para venda ou qualquer fim comercial.
 
 Este projeto **não tem fim comercial** e cita a fonte em todas as telas onde
-aparece texto transcrito. O PDF de origem está em [`fonte/`](fonte/).
+aparece texto transcrito. O PDF de origem não está neste repositório: baixe a versão
+vigente no site da Conitec.
 
 ---
 
@@ -61,61 +62,45 @@ aparece texto transcrito. O PDF de origem está em [`fonte/`](fonte/).
 
 ```
 .
-├── index.html          # arquivo publicado (gerado — não editar à mão)
-├── build.sh            # roda o pipeline inteiro
-├── build/
-│   ├── base.html       # lógica clínica e layout (fonte editável)
-│   ├── extrair.py      # PDF → recomendacoes.json
-│   ├── montar.py       # base.html + JSON → index.html
-│   └── prerender.js    # gera o HTML estático para funcionar sem JavaScript
-└── fonte/
-    └── diretrizes-colo-utero-parte-II.pdf
+└── index.html    # página completa: HTML pré-renderizado, CSS, dados e JavaScript
 ```
 
-O `index.html` é **gerado**. Para mudar o conteúdo clínico, edite `build/base.html`
-e rode o build de novo.
+O `index.html` é autossuficiente. Ele traz três camadas num arquivo só:
+
+- **HTML pré-renderizado** dentro de `<div id="raiz">`, para a página abrir com
+  conteúdo mesmo sem JavaScript.
+- **Transcrições das recomendações** no objeto `TEXTOS`, no início do `<script>`.
+  Cada chave é o número da recomendação (por exemplo `"5.2.1"`), com o texto em
+  `t` e a força e o nível de certeza em `f`.
+- **Lógica do navegador de conduta e das abas**, no restante do `<script>`.
+
+> A primeira versão foi gerada por um pipeline (scripts em Python que liam o PDF e
+> montavam este arquivo). Esses scripts não foram preservados, então hoje o
+> `index.html` é a fonte oficial do projeto.
 
 ---
 
-## Como reconstruir
+## Como editar
 
-Pré-requisitos: `python3`, `node` e `pdftotext`.
-
-```bash
-# macOS
-brew install poppler node
-
-# Ubuntu / Debian
-sudo apt install poppler-utils nodejs
-```
-
-Depois:
-
-```bash
-./build.sh
-```
-
-Ou passo a passo:
-
-```bash
-python3 build/extrair.py    # lê o PDF em fonte/ e grava build/recomendacoes.json
-python3 build/montar.py     # monta o index.html na raiz
-```
+Correções pequenas, como um erro de digitação ou o texto de uma recomendação, podem
+ser feitas direto no `index.html`. Nesse caso, altere o mesmo trecho em dois lugares:
+no objeto `TEXTOS` e no HTML pré-renderizado, para as duas versões continuarem iguais.
+Depois abra o arquivo no navegador e confira.
 
 ### Quando sair a versão final da diretriz
 
-1. Substitua o PDF em `fonte/` pelo novo.
-2. Rode `./build.sh`.
-3. Confira no navegador: abra `index.html`, teste o navegador de conduta e clique
-   em alguns números de recomendação para ver se o texto bate com o PDF novo.
-4. Revise `build/base.html`, porque as **condutas** podem ter mudado, não só o texto.
-   O build atualiza as transcrições automaticamente, mas a lógica clínica é escrita
-   à mão e precisa de conferência humana.
-5. Atualize o aviso de "versão preliminar" no cabeçalho, se ela deixar de ser preliminar.
+A versão final pode mudar condutas, e não só textos. Por isso vale refazer o
+pipeline em vez de editar à mão:
 
-O `extrair.py` traz duas tabelas de correção que podem precisar de ajuste se a
-diagramação mudar: `NOTAS`, que desfaz marcadores de nota de rodapé colados nas
-palavras, e `ERRATA`, que corrige erros de numeração do próprio documento.
+1. Baixe o PDF da versão final no site da Conitec.
+2. Recrie os scripts de extração usando este `index.html` como modelo de layout e
+   lógica. As transcrições passam a vir do PDF novo.
+3. Revise a lógica clínica do navegador de conduta à mão. As transcrições podem ser
+   automatizadas, mas as condutas precisam de conferência humana.
+4. Teste o navegador de conduta e clique em alguns números de recomendação para ver
+   se o texto bate com o PDF novo.
+5. Atualize ou remova o aviso de "versão preliminar" no cabeçalho.
+6. Desta vez, salve os scripts e o PDF no repositório, nas pastas `build/` e `fonte/`.
 
 ---
 
